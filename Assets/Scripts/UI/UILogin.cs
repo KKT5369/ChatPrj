@@ -36,12 +36,14 @@ public class UILogin : MonoBehaviour
             {
                 warningMessage.gameObject.SetActive(false);
                 warningMessage.alpha = 1f;
-                PlayerPrefs.SetString(inputNicName.text, inputNicName.text);
+                PlayerPrefs.SetString("MyNicName", inputNicName.text);
+                FindObjectOfType<UILoby>().SetUserName();
+                Destroy(gameObject);
             }
         }));
         
         // 팝업창 띄워준후 종료로 수정
-        btnCancel.onClick.AddListener((() => Application.Quit()));
+        btnCancel.onClick.AddListener((() => Destroy(gameObject)));
         //inputNicName.placeholder.
     }
 
