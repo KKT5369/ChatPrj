@@ -28,14 +28,16 @@ public class UILogin : MonoBehaviour
             if (NicNameCheck(inputNicName.text))
             {
                 warningMessage.gameObject.SetActive(true);
-                warningMessage.DOFade(0, 3f)
-                    .OnComplete((() => warningMessage.gameObject.SetActive(false)));
+                warningMessage.DOKill(this);
+                warningMessage.alpha = 1f;
+                warningMessage.DOFade(0, 3);
             }
             else
             {
+                warningMessage.gameObject.SetActive(false);
+                warningMessage.alpha = 1f;
                 PlayerPrefs.SetString(inputNicName.text, inputNicName.text);
             }
-            
         }));
         
         // 팝업창 띄워준후 종료로 수정
