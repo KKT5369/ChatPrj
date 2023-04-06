@@ -35,7 +35,7 @@ public class UIInputPopup : MonoBehaviour
         PopupData popupData = new PopupData();
         popupData.title = "알림";
         popupData.body = "취소 하시겠습니까";
-        btnCancel.onClick.AddListener(() => PopupManager.instance.CreatePopup(popupData,(() => Destroy(gameObject))));
+        btnCancel.onClick.AddListener(() => PopupManager.instance.CreatePopup(popupData,(() => UIManager.instance.CloseUI(gameObject))));
     }
 
     void SetNicName()
