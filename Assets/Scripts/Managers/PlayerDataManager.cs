@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerDataManager : SingleTon<PlayerDataManager>
 {
-    public string myNicName
+    private string _myNicName;
+    public string MyNicName
     {
-        get => myNicName;
-        set => myNicName = value;
+        get => _myNicName;
+        set => _myNicName = value;
     }
 
-    private Dictionary<string, string> _playerNicNameList;
-
-    public void SetPlayerList(string nicName)
+    private void Awake()
     {
-        _playerNicNameList.Add(nicName, nicName);
+        MyNicName = PlayerPrefs.GetString("MyNicName");
     }
-
-
 }

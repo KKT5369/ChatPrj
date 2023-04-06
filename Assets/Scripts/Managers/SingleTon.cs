@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleTon<T> : MonoBehaviour
+public class SingleTon<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 
@@ -10,11 +11,36 @@ public class SingleTon<T> : MonoBehaviour
     {
         get
         {
+            if (_instance == null)
+            {
+                GameObject go = GameObject.Find(typeof(T).Name);
+                if (go == null)
+                {
+                    go = new GameObject(typeof(T).Name);
+                    _instance = go.AddComponent<T>();
+                }
+                else
+                {
+                    _instance = go.GetComponent<T>();
+                }
+            }
+
             return _instance;
         }
     }
-    protected virtual void Awake()
+
+    private void Awake()
     {
-        _instance = this.GetComponent<T>();
+        GameObject parentGo = GameObject.Find("Managers");
+        if (parentGo == null)
+        {
+            parentGo = new GameObject("Managers");
+            gameObject.transform.parent = parentGo.transform;
+            DontDestroyOnLoad(parentGo);
+        }
+        else
+        {
+            gameObject.transform.parent = parentGo.transform;
+        }
     }
 }
