@@ -27,30 +27,32 @@ public class UIInputPopup : MonoBehaviour
     {
         btnJoin.onClick.AddListener((() =>
         {
-            switch (InputPopupManager.instance.popupType)
-            {
-                case PopupType.CreateNicName:
-                    CreateNicName();
-                    break;
-                case PopupType.ModifyNicName:
-                    ModifyNicName();
-                    break;
-            }
+            SetNicName();
         }));
-        
+        PopupData popupData = new PopupData();
+        popupData.title = "알림";
+        popupData.body = "취소 하시겠습니까";
         // 팝업창 띄워준후 종료로 수정
-        btnCancel.onClick.AddListener(() => UIManager.instance.CloseUI(gameObject));
+        btnCancel.onClick.AddListener(() => PopupManager.instance.CreatePopup(popupData,(() => Destroy(gameObject))));
         //inputNicName.placeholder.
     }
 
-    private void ModifyNicName()
+    void SetNicName()
     {
         string nicName = inputNicName.text;
-        string curNicName = PlayerDataManager.instance.MyNicName;
         if (NicNameCheck(nicName))
         {
             txtWarningMessage.gameObject.SetActive(true);
             txtWarningMessage.DOKill(this);
+            txtWarningMessage.text = "중복된 아이디 입니다.";
+            txtWarningMessage.alpha = 1f;
+            txtWarningMessage.DOFade(0, 3);
+        }
+        else if (nicName.Equals(""))
+        {
+            txtWarningMessage.gameObject.SetActive(true);
+            txtWarningMessage.DOKill(this);
+            txtWarningMessage.text = "닉네임을 입력하세요.";
             txtWarningMessage.alpha = 1f;
             txtWarningMessage.DOFade(0, 3);
         }
@@ -58,31 +60,12 @@ public class UIInputPopup : MonoBehaviour
         {
             txtWarningMessage.gameObject.SetActive(false);
             txtWarningMessage.alpha = 1f;
-            PlayerPrefs.SetString("MyNicName", nicName);
-            PlayerPrefs.SetString(nicName, nicName);
-            PlayerPrefs.DeleteKey(curNicName);
-            PlayerDataManager.instance.MyNicName = nicName;
-            FindObjectOfType<UILoby>().SetUserName();
-            Destroy(gameObject);
-        }
-        
-    }
+            if (InputPopupManager.instance.popupType == PopupType.ModifyNicName)
+            {
+                string curNicName = PlayerDataManager.instance.MyNicName;
+                PlayerPrefs.DeleteKey(curNicName);
+            }
 
-    void CreateNicName()
-    {
-        string nicName = inputNicName.text;
-        // 일단 플레이어 프리팹에 저장
-        if (NicNameCheck(nicName))
-        {
-            txtWarningMessage.gameObject.SetActive(true);
-            txtWarningMessage.DOKill(this);
-            txtWarningMessage.alpha = 1f;
-            txtWarningMessage.DOFade(0, 3);
-        }
-        else
-        {
-            txtWarningMessage.gameObject.SetActive(false);
-            txtWarningMessage.alpha = 1f;
             PlayerPrefs.SetString("MyNicName", nicName);
             PlayerPrefs.SetString(nicName, nicName);
             PlayerDataManager.instance.MyNicName = nicName;

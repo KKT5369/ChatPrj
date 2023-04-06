@@ -2549,3 +2549,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtMyNicName: {fileID: 2756731783727464085}
+  btnNicNameModify: {fileID: 2756731784137506204}
+  btnExit: {fileID: 2756731784008423549}
+  btnUserInfo: {fileID: 2756731783736304621}
+  btnShop: {fileID: 2756731785161515524}
+  btnCreateRoom: {fileID: 2756731783449436046}
+  btnJoinRoom: {fileID: 2756731783614949950}
+  btnRoomRefresh: {fileID: 2756731783892357631}
