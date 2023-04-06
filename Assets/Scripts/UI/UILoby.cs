@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class UILoby : MonoBehaviour
 {
     [SerializeField] private TMP_Text txtMyNicName;
+    [SerializeField] private RectTransform content;
+    [SerializeField] private GameObject roomInfo;
     
-    [Header("TOP Buttns")]
-        [SerializeField] private Button btnNicNameModify;
+    [Header("TOP Buttns")] 
+    [SerializeField] private Button btnNicNameModify;
     [SerializeField] private Button btnExit;
     [SerializeField] private Button btnUserInfo;
     [SerializeField] private Button btnShop;

@@ -29,12 +29,13 @@ public class UIInputPopup : MonoBehaviour
         {
             SetNicName();
         }));
+        
+        
+        // 팝업창 띄워준후 종료로 수정
         PopupData popupData = new PopupData();
         popupData.title = "알림";
         popupData.body = "취소 하시겠습니까";
-        // 팝업창 띄워준후 종료로 수정
         btnCancel.onClick.AddListener(() => PopupManager.instance.CreatePopup(popupData,(() => Destroy(gameObject))));
-        //inputNicName.placeholder.
     }
 
     void SetNicName()
