@@ -11,8 +11,7 @@ public class PopupManager : SingleTon<PopupManager>
     public void CreatePopup(PopupData popupData,Action collback)
     {
         _popupData = popupData;
-        _action -= collback;
-        _action += collback;
+        _action = collback;
         UIManager.instance.CreateUI<UIPopup>();
     }
 }
