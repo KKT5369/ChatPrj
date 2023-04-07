@@ -19,10 +19,11 @@ public class UILoby : MonoBehaviour
     [SerializeField] private Button btnCreateRoom;
     [SerializeField] private Button btnJoinRoom;
     [SerializeField] private Button btnRoomRefresh;
-
+    
+    
     private void Awake()
     {
-        btnNicNameModify.onClick.AddListener((() => InputPopupManager.instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
+        SetAddlistener();
     }
 
     private void Start()
@@ -40,5 +41,18 @@ public class UILoby : MonoBehaviour
     public void SetUserName()
     {
         txtMyNicName.text = PlayerDataManager.instance.MyNicName;
+    }
+
+    public void SetingRoom()
+    {
+        
+    }
+
+    void SetAddlistener() 
+    {
+        btnNicNameModify.onClick.AddListener((() => InputPopupManager.instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
+        btnExit.onClick.AddListener((() => Debug.Log("종료")));
+        
+        btnCreateRoom.onClick.AddListener((() => UIManager.instance.CreateUI<UICreateRoom>()));
     }
 }
