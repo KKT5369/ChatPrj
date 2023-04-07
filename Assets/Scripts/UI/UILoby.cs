@@ -24,6 +24,7 @@ public class UILoby : MonoBehaviour
     private void Awake()
     {
         SetAddlistener();
+        RoomManager.instance.action = SetingRoom;
     }
 
     private void Start()
@@ -43,9 +44,11 @@ public class UILoby : MonoBehaviour
         txtMyNicName.text = PlayerDataManager.instance.MyNicName;
     }
 
-    public void SetingRoom()
+    public void SetingRoom(RoomData roomData)
     {
-        
+        var go = Instantiate(roomInfo, content);
+        go.SetActive(true);
+        go.GetComponent<RoomItem>().SetValue(roomData);
     }
 
     void SetAddlistener() 

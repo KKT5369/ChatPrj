@@ -8,7 +8,7 @@ public class PopupManager : SingleTon<PopupManager>
     public Action _action { get; private set; }
     public PopupData _popupData { get; private set; }
 
-    public void CreatePopup(PopupData popupData,Action collback)
+    public void CreatePopup(PopupData popupData,Action collback = null)
     {
         _popupData = popupData;
         _action = collback;
@@ -20,4 +20,16 @@ public class PopupData
 {
     public string title { get; set; }
     public string body { get; set; }
+
+    public PopupData()
+    {
+        title = "";
+        body = "";
+    }
+
+    public PopupData(string title, string body)
+    {
+        this.title = title;
+        this.body  = body;
+    }
 }

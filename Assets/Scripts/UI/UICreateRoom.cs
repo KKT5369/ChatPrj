@@ -21,7 +21,13 @@ public class UICreateRoom : MonoBehaviour
     private void CreateRoom()
     {
         RoomData roomData = new RoomData();
-
+        if (inputRoomTitle.text.Equals(""))
+        {
+            PopupData popupData = new PopupData("경고","방 이름을 설정 하세요");
+            PopupManager.instance.CreatePopup(popupData);
+            return;
+        }
+        
         roomData.roomTitle = inputRoomTitle.text;
         GameType? gameType = GetGameType();
         if (gameType == null)
@@ -33,7 +39,7 @@ public class UICreateRoom : MonoBehaviour
         roomData.userNumber = userNumberValue.value + 1;
         
         RoomManager.instance.CreateRoom(roomData);
-
+        UIManager.instance.CloseUI(gameObject);
     }
 
     private GameType? GetGameType()

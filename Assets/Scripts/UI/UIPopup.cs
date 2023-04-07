@@ -23,7 +23,7 @@ public class UIPopup : MonoBehaviour
     {
         btnOkey.onClick.AddListener((() =>
         {
-            PopupManager.instance._action.Invoke();
+            PopupManager.instance._action?.Invoke();
             UIManager.instance.CloseUI(gameObject);
         }));
         
