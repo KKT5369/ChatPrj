@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class RoomItem : MonoBehaviour
 {
+    [SerializeField] private TMP_Text txtRoomNum;
+    [SerializeField] private TMP_Text txtHostName;
     [SerializeField] private TMP_Text txtTitle;
     [SerializeField] private TMP_Text txtGameTitle;
     [SerializeField] private TMP_Text txtCurUserNum;
@@ -13,6 +16,8 @@ public class RoomItem : MonoBehaviour
 
     public void SetValue(RoomData roomData)
     {
+        txtRoomNum.text = roomData.roomNum.ToString();
+        txtHostName.text = roomData.HostName;
         txtTitle.text = roomData.roomTitle;
         txtGameTitle.text = roomData.gameType.ToString();
         txtCurUserNum.text = "1";
@@ -20,9 +25,10 @@ public class RoomItem : MonoBehaviour
 
         Button btn = GetComponent<Button>();
         PopupData popupData = new PopupData() ;
-        popupData.title = "미구현";
-        popupData.body = "미구현";
-        btn.onClick.AddListener((() => PopupManager.instance.CreatePopup(popupData)));
+        popupData.title = "입장";
+        popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
+        btn.onClick.AddListener((() => PopupManager.instance.CreatePopup(popupData,
+            (() => Debug.Log($"{txtTitle.text} 방에 입장 완료")))));
     }
     
 }

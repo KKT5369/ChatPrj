@@ -21,13 +21,20 @@ public class UICreateRoom : MonoBehaviour
     private void CreateRoom()
     {
         RoomData roomData = new RoomData();
+        roomData.roomNum = RoomManager.instance.GetEmptyRoom();
         if (inputRoomTitle.text.Equals(""))
         {
             PopupData popupData = new PopupData("경고","방 이름을 설정 하세요");
             PopupManager.instance.CreatePopup(popupData);
             return;
         }
-        
+        if (roomData.roomNum == -1)
+        {
+            PopupData popupData = new PopupData("생성 불가","더이상 새로운 방을 생성 할수 없습니다.");
+            PopupManager.instance.CreatePopup(popupData);
+            return;
+        }
+        roomData.HostName = PlayerDataManager.instance.MyNicName;
         roomData.roomTitle = inputRoomTitle.text;
         GameType? gameType = GetGameType();
         if (gameType == null)
@@ -38,7 +45,7 @@ public class UICreateRoom : MonoBehaviour
         roomData.gameType = gameType;
         roomData.userNumber = userNumberValue.value + 1;
         
-        RoomManager.instance.CreateRoom(roomData);
+        RoomManager.instance.SaveRoom(roomData);
         UIManager.instance.CloseUI(gameObject);
     }
 
