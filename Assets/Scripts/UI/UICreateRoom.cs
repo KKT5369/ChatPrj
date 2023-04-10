@@ -45,7 +45,8 @@ public class UICreateRoom : MonoBehaviour
         roomData.gameType = gameType;
         roomData.userNumber = userNumberValue.value + 1;
         
-        RoomManager.instance.SaveRoom(roomData);
+        RoomManager.instance.CreateRoom(roomData);
+        SceneLoadManager.instance.LoadScene(SceneType.RoomScene);
         UIManager.instance.CloseUI(gameObject);
     }
 

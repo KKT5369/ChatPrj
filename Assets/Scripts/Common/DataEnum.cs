@@ -11,3 +11,10 @@ public enum GameType
     Game2,
     Game3,
 }
+
+public enum SceneType
+{
+    LobyScene,
+    RoomScene,
+    GameScene,
+}

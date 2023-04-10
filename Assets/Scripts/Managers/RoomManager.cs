@@ -24,7 +24,7 @@ public class RoomManager : SingleTon<RoomManager>
         get => _roomDatas;
     }
 
-    public void SaveRoom(RoomData roomData)
+    public void CreateRoom(RoomData roomData)
     {
         _roomDatas.Add(roomData);
         action.Invoke(roomData);
