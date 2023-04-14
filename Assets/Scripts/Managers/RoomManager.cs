@@ -29,6 +29,8 @@ public class RoomManager : SingleTon<RoomManager>
         _roomDatas.Add(roomData);
         action.Invoke(roomData);
     }
+    
+    
 
     public int GetEmptyRoom()
     {

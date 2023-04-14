@@ -19,6 +19,8 @@ public class UILoby : MonoBehaviour
     [SerializeField] private Button btnCreateRoom;
     [SerializeField] private Button btnJoinRoom;
     [SerializeField] private Button btnRoomRefresh;
+    [SerializeField] private Button btnPrePage;
+    [SerializeField] private Button btnNextPage;
     
     
     private void Awake()
