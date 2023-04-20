@@ -9,9 +9,4 @@ public class PlayerDataManager : SingleTon<PlayerDataManager>
         get => _myNicName;
         set => _myNicName = value;
     }
-
-    private void Awake()
-    {
-        MyNicName = PlayerPrefs.GetString("MyNicName");
-    }
 }

@@ -1,4 +1,5 @@
 using System;
+using Class;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,7 +47,7 @@ public class UICreateRoom : MonoBehaviour
         roomData.userNumber = userNumberValue.value + 1;
         
         RoomManager.instance.CreateRoom(roomData);
-        //SceneLoadManager.instance.LoadScene(SceneType.RoomScene);
+        SceneLoadManager.instance.LoadScene(new RoomScene());
         UIManager.instance.CloseUI(gameObject);
     }
 

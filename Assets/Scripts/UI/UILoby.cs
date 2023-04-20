@@ -31,8 +31,9 @@ public class UILoby : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerDataManager.instance.MyNicName.Equals(""))
+        if (!PlayerPrefs.GetString("MyNicName").Equals(""))
         {
+            PlayerDataManager.instance.MyNicName = PlayerPrefs.GetString("MyNicName");
             txtMyNicName.text = PlayerDataManager.instance.MyNicName;
         }
         else
