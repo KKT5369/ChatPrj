@@ -1,5 +1,3 @@
-using System;
-using Class;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

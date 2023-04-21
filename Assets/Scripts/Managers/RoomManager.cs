@@ -29,6 +29,7 @@ public class RoomManager : SingleTon<RoomManager>
     {
         _roomDatas.Add(roomData);
         action.Invoke(roomData);
+        // PhotonManager.Instance.OnCreatedRoom();
     }
     
     

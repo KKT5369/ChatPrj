@@ -57,6 +57,7 @@ public class UILoby : MonoBehaviour
         go.GetComponent<RoomItem>().SetValue(roomData);
         _roomList.Add(go);
     }
+    
 
     public void Refresh()
     {
@@ -72,8 +73,6 @@ public class UILoby : MonoBehaviour
             SetingRoom(v);
         }
     }
-    
-    
 
     void SetAddlistener() 
     {
