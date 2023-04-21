@@ -14,7 +14,7 @@ public class UILoading : MonoBehaviour
     
     IEnumerator SceneLoading()
     {
-        Iscene scene = SceneLoadManager.instance.Scene;
+        Iscene scene = SceneLoadManager.Instance.Scene;
         AsyncOperation op = SceneManager.LoadSceneAsync(scene.GetType().Name);
         op.allowSceneActivation = false;
 
@@ -30,7 +30,7 @@ public class UILoading : MonoBehaviour
                 ProgressBar.fillAmount = 1f;
                 yield return new WaitForSeconds(0.5f);
                 op.allowSceneActivation = true;
-                SceneManager.sceneLoaded += SceneLoadManager.instance.OnSceneLoaded; 
+                SceneManager.sceneLoaded += SceneLoadManager.Instance.OnSceneLoaded; 
                 yield break;
             }
         }

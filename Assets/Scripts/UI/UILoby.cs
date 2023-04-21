@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,30 +22,32 @@ public class UILoby : MonoBehaviour
     [SerializeField] private Button btnRoomRefresh;
     [SerializeField] private Button btnPrePage;
     [SerializeField] private Button btnNextPage;
+
+    private List<GameObject> _roomList = new ();
     
     
     private void Awake()
     {
         SetAddlistener();
-        RoomManager.instance.action = SetingRoom;
+        RoomManager.Instance.action = SetingRoom;
     }
 
     private void Start()
     {
         if (!PlayerPrefs.GetString("MyNicName").Equals(""))
         {
-            PlayerDataManager.instance.MyNicName = PlayerPrefs.GetString("MyNicName");
-            txtMyNicName.text = PlayerDataManager.instance.MyNicName;
+            PlayerDataManager.Instance.MyNicName = PlayerPrefs.GetString("MyNicName");
+            txtMyNicName.text = PlayerDataManager.Instance.MyNicName;
         }
         else
         {
-            UIManager.instance.CreateUI<UIInputPopup>();
+            UIManager.Instance.CreateUI<UIInputPopup>();
         }
     }
 
     public void SetUserName()
     {
-        txtMyNicName.text = PlayerDataManager.instance.MyNicName;
+        txtMyNicName.text = PlayerDataManager.Instance.MyNicName;
     }
 
     public void SetingRoom(RoomData roomData)
@@ -52,13 +55,32 @@ public class UILoby : MonoBehaviour
         var go = Instantiate(roomInfo, content);
         go.SetActive(true);
         go.GetComponent<RoomItem>().SetValue(roomData);
+        _roomList.Add(go);
     }
+
+    public void Refresh()
+    {
+        foreach (var v in _roomList)
+        {
+            Destroy(v);
+        }
+        _roomList.Clear();
+        
+        var roomDatas = RoomManager.Instance.RoomDatas;
+        foreach (var v in roomDatas)
+        {
+            SetingRoom(v);
+        }
+    }
+    
+    
 
     void SetAddlistener() 
     {
-        btnNicNameModify.onClick.AddListener((() => InputPopupManager.instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
+        btnNicNameModify.onClick.AddListener((() => InputPopupManager.Instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
         btnExit.onClick.AddListener((() => Debug.Log("종료")));
         
-        btnCreateRoom.onClick.AddListener((() => UIManager.instance.CreateUI<UICreateRoom>()));
+        btnCreateRoom.onClick.AddListener((() => UIManager.Instance.CreateUI<UICreateRoom>()));
+        btnRoomRefresh.onClick.AddListener(Refresh);
     }
 }

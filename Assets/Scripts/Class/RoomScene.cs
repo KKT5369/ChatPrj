@@ -7,7 +7,7 @@ namespace Class
     {
         public void SceneSetting()
         {
-            UIManager.instance.CreateUI<UIRoom>();
+            UIManager.Instance.CreateUI<UIRoom>();
         }
     }
 }

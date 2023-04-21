@@ -2,20 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoomManager : SingleTon<RoomManager>
 {
     private List<RoomData> _roomDatas;
     public Action<RoomData> action;
-    public bool[] EmptyRooms;
+    public bool[] emptyRooms;
     
     private void Start()
     {
         _roomDatas = new List<RoomData>();
-        EmptyRooms = new bool[10];
-        for (int i = 0; i < EmptyRooms.Length; i++)
+        emptyRooms = new bool[10];
+        for (int i = 0; i < emptyRooms.Length; i++)
         {
-            EmptyRooms[i] = true;
+            emptyRooms[i] = true;
         }
     }
 
@@ -35,12 +36,12 @@ public class RoomManager : SingleTon<RoomManager>
     public int GetEmptyRoom()
     {
         int result;
-        for (int i = 0; i < EmptyRooms.Length; i++)
+        for (int i = 0; i < emptyRooms.Length; i++)
         {
-            if (EmptyRooms[i])
+            if (emptyRooms[i])
             {
                 result = i;
-                EmptyRooms[i] = false;
+                emptyRooms[i] = false;
                 return result;
             }
         }
@@ -60,6 +61,6 @@ public class RoomData
     public string HostName;
     public string roomTitle;
     public GameType? gameType;
-    public int userNumber;
+    public int maxPlayer;
 }
 

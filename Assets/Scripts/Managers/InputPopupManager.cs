@@ -9,7 +9,7 @@ public class InputPopupManager : SingleTon<InputPopupManager>
     public void CreatePopup<T>(PopupType popupType)
     {
         _popupType = popupType;
-        UIManager.instance.CreateUI<T>();
+        UIManager.Instance.CreateUI<T>();
     }
     
     public PopupType popupType

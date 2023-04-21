@@ -35,7 +35,7 @@ public class UIInputPopup : MonoBehaviour
         PopupData popupData = new PopupData();
         popupData.title = "알림";
         popupData.body = "취소 하시겠습니까";
-        btnCancel.onClick.AddListener(() => PopupManager.instance.CreatePopup(popupData,(() => UIManager.instance.CloseUI(gameObject))));
+        btnCancel.onClick.AddListener(() => PopupManager.Instance.CreatePopup(popupData,(() => UIManager.Instance.CloseUI(gameObject))));
     }
 
     void SetNicName()
@@ -61,15 +61,15 @@ public class UIInputPopup : MonoBehaviour
         {
             txtWarningMessage.gameObject.SetActive(false);
             txtWarningMessage.alpha = 1f;
-            if (InputPopupManager.instance.popupType == PopupType.ModifyNicName)
+            if (InputPopupManager.Instance.popupType == PopupType.ModifyNicName)
             {
-                string curNicName = PlayerDataManager.instance.MyNicName;
+                string curNicName = PlayerDataManager.Instance.MyNicName;
                 PlayerPrefs.DeleteKey(curNicName);
             }
 
             PlayerPrefs.SetString("MyNicName", nicName);
             PlayerPrefs.SetString(nicName, nicName);
-            PlayerDataManager.instance.MyNicName = nicName;
+            PlayerDataManager.Instance.MyNicName = nicName;
             FindObjectOfType<UILoby>().SetUserName();
             Destroy(gameObject);
         }
@@ -82,7 +82,7 @@ public class UIInputPopup : MonoBehaviour
 
     void SetTitle()
     {
-        switch (InputPopupManager.instance.popupType)
+        switch (InputPopupManager.Instance.popupType)
         {
             case PopupType.CreateNicName:
                 txtTitle.text = "닉네임 생성";

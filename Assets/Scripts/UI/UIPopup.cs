@@ -13,8 +13,8 @@ public class UIPopup : MonoBehaviour
 
     private void Awake()
     {
-        txtTitle.text = PopupManager.instance._popupData.title;
-        txtBody.text = PopupManager.instance._popupData.body;
+        txtTitle.text = PopupManager.Instance._popupData.title;
+        txtBody.text = PopupManager.Instance._popupData.body;
         SetAddListener();
     }
 
@@ -23,11 +23,11 @@ public class UIPopup : MonoBehaviour
     {
         btnOkey.onClick.AddListener((() =>
         {
-            PopupManager.instance._action?.Invoke();
-            UIManager.instance.CloseUI(gameObject);
+            PopupManager.Instance._action?.Invoke();
+            UIManager.Instance.CloseUI(gameObject);
         }));
         
-        btnCancel.onClick.AddListener((() => UIManager.instance.CloseUI(gameObject)));
+        btnCancel.onClick.AddListener((() => UIManager.Instance.CloseUI(gameObject)));
     }
     
 }

@@ -21,13 +21,13 @@ public class RoomItem : MonoBehaviour
         txtTitle.text = roomData.roomTitle;
         txtGameTitle.text = roomData.gameType.ToString();
         txtCurUserNum.text = "1";
-        txtMaxUserNum.text = roomData.userNumber.ToString();
+        txtMaxUserNum.text = roomData.maxPlayer.ToString();
 
         Button btn = GetComponent<Button>();
         PopupData popupData = new PopupData() ;
         popupData.title = "입장";
         popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
-        btn.onClick.AddListener((() => PopupManager.instance.CreatePopup(popupData,
+        btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
             (() => Debug.Log($"{txtTitle.text} 방에 입장 완료")))));
     }
     

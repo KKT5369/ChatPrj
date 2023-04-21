@@ -22,20 +22,20 @@ public class UICreateRoom : MonoBehaviour
     private void CreateRoom()
     {
         RoomData roomData = new RoomData();
-        roomData.roomNum = RoomManager.instance.GetEmptyRoom();
+        roomData.roomNum = RoomManager.Instance.GetEmptyRoom();
         if (inputRoomTitle.text.Equals(""))
         {
             PopupData popupData = new PopupData("경고","방 이름을 설정 하세요");
-            PopupManager.instance.CreatePopup(popupData);
+            PopupManager.Instance.CreatePopup(popupData);
             return;
         }
         if (roomData.roomNum == -1)
         {
             PopupData popupData = new PopupData("생성 불가","더이상 새로운 방을 생성 할수 없습니다.");
-            PopupManager.instance.CreatePopup(popupData);
+            PopupManager.Instance.CreatePopup(popupData);
             return;
         }
-        roomData.HostName = PlayerDataManager.instance.MyNicName;
+        roomData.HostName = PlayerDataManager.Instance.MyNicName;
         roomData.roomTitle = inputRoomTitle.text;
         GameType? gameType = GetGameType();
         if (gameType == null)
@@ -44,11 +44,11 @@ public class UICreateRoom : MonoBehaviour
             return;
         }
         roomData.gameType = gameType;
-        roomData.userNumber = userNumberValue.value + 1;
+        roomData.maxPlayer = userNumberValue.value + 1;
         
-        RoomManager.instance.CreateRoom(roomData);
-        SceneLoadManager.instance.LoadScene(new RoomScene());
-        UIManager.instance.CloseUI(gameObject);
+        RoomManager.Instance.CreateRoom(roomData);
+        //SceneLoadManager.Instance.LoadScene(new RoomScene());
+        UIManager.Instance.CloseUI(gameObject);
     }
 
     private GameType? GetGameType()
@@ -70,6 +70,6 @@ public class UICreateRoom : MonoBehaviour
     void SetAddListener()
     {
         btnOkey.onClick.AddListener(CreateRoom);
-        btncancel.onClick.AddListener((() => UIManager.instance.CloseUI(gameObject)));
+        btncancel.onClick.AddListener((() => UIManager.Instance.CloseUI(gameObject)));
     }
 }

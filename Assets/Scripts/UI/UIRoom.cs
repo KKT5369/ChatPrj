@@ -11,6 +11,6 @@ public class UIRoom : MonoBehaviour
 
     private void Start()
     {
-        btnExti.onClick.AddListener((() => {SceneLoadManager.instance.LoadScene(new LobyScene());}));
+        btnExti.onClick.AddListener((() => {SceneLoadManager.Instance.LoadScene(new LobyScene());}));
     }
 }

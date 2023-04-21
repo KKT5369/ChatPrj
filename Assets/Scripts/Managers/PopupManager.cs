@@ -12,7 +12,7 @@ public class PopupManager : SingleTon<PopupManager>
     {
         _popupData = popupData;
         _action = collback;
-        UIManager.instance.CreateUI<UIPopup>();
+        UIManager.Instance.CreateUI<UIPopup>();
     }
 }
 
