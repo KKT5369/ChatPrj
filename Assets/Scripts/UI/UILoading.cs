@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,7 +15,7 @@ public class UILoading : MonoBehaviour
     IEnumerator SceneLoading()
     {
         Iscene scene = SceneLoadManager.instance.Scene;
-        AsyncOperation op = SceneManager.LoadSceneAsync(nameof(scene));
+        AsyncOperation op = SceneManager.LoadSceneAsync(scene.GetType().Name);
         op.allowSceneActivation = false;
 
         ProgressBar.fillAmount = 0f;
