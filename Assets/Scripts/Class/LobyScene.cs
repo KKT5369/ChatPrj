@@ -6,7 +6,7 @@ namespace Class
     {
         public void SceneSetting()
         {
-            
+            UIManager.Instance.CreateUI<UILoby>();
         }
     }
 }
