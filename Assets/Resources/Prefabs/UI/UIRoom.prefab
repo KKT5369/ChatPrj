@@ -887,6 +887,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076bb5743a4eb694aa8e34a0c2ec3c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomTitle: {fileID: 7996285140382071260}
+  nicName: {fileID: 7996285140359923597}
+  chatRect: {fileID: 7996285141961822715}
+  chatItem: {fileID: 7996285141228716898}
+  inputTxt: {fileID: 7996285141101863897}
   btnExti: {fileID: 7996285142045518506}
 --- !u!1 &7996285140574256130
 GameObject:
@@ -1527,7 +1532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3147\u3147"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e03f5741e6b88e4ebb64781a82e246c, type: 2}
   m_sharedMaterial: {fileID: -4216065563909577777, guid: 8e03f5741e6b88e4ebb64781a82e246c,

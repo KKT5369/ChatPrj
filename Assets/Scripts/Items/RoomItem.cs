@@ -28,6 +28,6 @@ public class RoomItem : MonoBehaviour
         popupData.title = "입장";
         popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
         // btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
-        //     (() => PhotonManager.Instance.JoinRoom(roomData)))));
+        //     (() => NetWorkManager.Instance.JoinRoom(roomData)))));
     }
 }

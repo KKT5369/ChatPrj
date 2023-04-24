@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Class;
+using Photon.Pun;
 using UnityEngine;
 
 public class UIIntro : MonoBehaviour

@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +29,7 @@ public class UILoby : MonoBehaviour
     private void Awake()
     {
         SetAddlistener();
-        RoomManager.Instance.action = SetingRoom;
+        RoomManager.Instance.createLobyRoom = SetingRoom;
     }
 
     private void Start()
@@ -57,6 +57,7 @@ public class UILoby : MonoBehaviour
         go.GetComponent<RoomItem>().SetValue(roomData);
         _roomList.Add(go);
     }
+    
     
 
     public void Refresh()

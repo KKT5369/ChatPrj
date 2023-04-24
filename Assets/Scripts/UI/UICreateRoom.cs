@@ -1,3 +1,6 @@
+using Class;
+using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +48,6 @@ public class UICreateRoom : MonoBehaviour
         roomData.maxPlayer = userNumberValue.value + 1;
         
         RoomManager.Instance.CreateRoom(roomData);
-        //SceneLoadManager.Instance.LoadScene(new RoomScene());
         UIManager.Instance.CloseUI(gameObject);
     }
 

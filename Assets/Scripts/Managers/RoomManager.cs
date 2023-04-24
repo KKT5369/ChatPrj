@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Class;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RoomManager : SingleTon<RoomManager>
 {
     private List<RoomData> _roomDatas;
-    public Action<RoomData> action;
+    public Action<RoomData> createLobyRoom;
     public bool[] emptyRooms;
     
     private void Start()
@@ -28,8 +29,16 @@ public class RoomManager : SingleTon<RoomManager>
     public void CreateRoom(RoomData roomData)
     {
         _roomDatas.Add(roomData);
-        action.Invoke(roomData);
-        // PhotonManager.Instance.OnCreatedRoom();
+        createLobyRoom.Invoke(roomData);
+        
+        Debug.Log($"방 생성");
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = (byte)roomData.maxPlayer;
+        options.IsVisible = true;
+        PhotonNetwork.NickName = roomData.HostName;
+        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, options,TypedLobby.Default);
+        
+        SceneLoadManager.Instance.LoadScene(new RoomScene());
     }
     
     
@@ -58,10 +67,10 @@ public class RoomManager : SingleTon<RoomManager>
 
 public class RoomData
 {
-    public int roomNum;
-    public string HostName;
-    public string roomTitle;
+    public int roomNum; // OK
+    public string HostName; // Ok
+    public string roomTitle; // Ok
     public GameType? gameType;
-    public int maxPlayer;
+    public int maxPlayer; // ok
 }
 

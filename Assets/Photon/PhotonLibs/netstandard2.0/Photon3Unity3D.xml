@@ -604,7 +604,7 @@
         </member>
         <member name="T:ExitGames.Client.Photon.SimulationItem">
             <summary>
-            A simulation item is an action that can be queued to simulate network lag.
+            A simulation item is an createLobyRoom that can be queued to simulate network lag.
             </summary>
         </member>
         <member name="F:ExitGames.Client.Photon.SimulationItem.stopw">
