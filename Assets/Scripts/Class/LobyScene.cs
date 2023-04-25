@@ -1,4 +1,6 @@
-﻿namespace Class
+﻿using Photon.Pun;
+
+namespace Class
 {
     public class LobyScene : Iscene
     {

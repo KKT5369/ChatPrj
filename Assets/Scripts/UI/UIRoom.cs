@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Class;
 using Photon.Pun;
-using Photon.Pun.Demo.Hub;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -16,6 +13,8 @@ public class UIRoom : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject chatItem;
     [SerializeField] private TMP_InputField inputTxt;
     [SerializeField] private Button btnExti;
+
+    private RoomData _roomData;
     
     public void Connect()
     {
@@ -25,30 +24,30 @@ public class UIRoom : MonoBehaviourPunCallbacks
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
+        _roomData = RoomManager.Instance.RoomDatas;
         print("접속성공.");
-        PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions() { MaxPlayers = 10 }, null);
-    }
-
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("로비입장...");
+        
+        PhotonNetwork.JoinOrCreateRoom(_roomData.roomTitle, new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("방입장...");
-        Debug.Log($"{PhotonNetwork.CurrentRoom.Name}");
+        PhotonNetwork.NickName = _roomData.HostName;
+        PhotonNetwork.CurrentRoom.MaxPlayers = (byte)_roomData.maxPlayer;
+        PhotonNetwork.CurrentRoom.IsOpen = true;
+        SettingRoom();
     }
 
     private void Start()
     {
+        Connect();
+        
         btnExti.onClick.AddListener((() => {
         {
             PhotonNetwork.Disconnect();
             SceneLoadManager.Instance.LoadScene(new LobyScene());
         }}));
-        SettingRoom();
-        Connect();
     }
 
     void SettingRoom()

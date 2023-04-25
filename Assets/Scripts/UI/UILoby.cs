@@ -40,11 +40,19 @@ public class UILoby : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("실행?");
+        foreach (var v in _roomList)
+        {
+            Destroy(v);
+        }
+        _roomList.Clear();
+        Debug.Log($"{roomList.Count}");
         foreach (var v in roomList)
         {
             var roomData = new RoomData();
-            
+            roomData.roomTitle = v.Name;
+            roomData.maxPlayer = v.MaxPlayers;
+            roomData.roomNum = 1;
+            roomData.HostName = "몰라";
             
             var go = Instantiate(roomInfo, content);
             go.SetActive(true);
@@ -99,11 +107,6 @@ public class UILoby : MonoBehaviourPunCallbacks
         }
         _roomList.Clear();
         
-        var roomDatas = RoomManager.Instance.RoomDatas;
-        foreach (var v in roomDatas)
-        {
-            SetingRoom(v);
-        }
     }
 
     void SetAddlistener() 

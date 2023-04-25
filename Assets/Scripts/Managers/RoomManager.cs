@@ -1,61 +1,24 @@
 using System;
-using System.Collections.Generic;
 using Class;
 using Photon.Pun;
-using Photon.Realtime;
-using UnityEngine;
 
 public class RoomManager : SingleTon<RoomManager>
 {
-    private List<RoomData> _roomDatas;
+    private RoomData _roomDatas;
     public Action<RoomData> createLobyRoom;
-    public bool[] emptyRooms;
-    
-    private void Start()
-    {
-        _roomDatas = new List<RoomData>();
-        emptyRooms = new bool[10];
-        for (int i = 0; i < emptyRooms.Length; i++)
-        {
-            emptyRooms[i] = true;
-        }
-    }
 
-    public List<RoomData> RoomDatas
+    public RoomData RoomDatas
     {
         get => _roomDatas;
     }
 
     public void CreateRoom(RoomData roomData)
     {
-        _roomDatas.Add(roomData);
+        _roomDatas = roomData;
         createLobyRoom.Invoke(roomData);
         PhotonNetwork.Disconnect();
         SceneLoadManager.Instance.LoadScene(new RoomScene());
     }
-    
-    
-
-    public int GetEmptyRoom()
-    {
-        int result;
-        for (int i = 0; i < emptyRooms.Length; i++)
-        {
-            if (emptyRooms[i])
-            {
-                result = i;
-                emptyRooms[i] = false;
-                return result;
-            }
-        }
-        return -1;
-    }
-
-    public RoomData GetRoomData(int RoomNum)
-    {
-        return _roomDatas[RoomNum];
-    }
-    
 }
 
 public class RoomData
