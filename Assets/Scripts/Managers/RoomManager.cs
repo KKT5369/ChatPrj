@@ -31,13 +31,13 @@ public class RoomManager : SingleTon<RoomManager>
         _roomDatas.Add(roomData);
         createLobyRoom.Invoke(roomData);
         
-        Debug.Log($"방 생성");
-        RoomOptions options = new RoomOptions();
-        options.MaxPlayers = (byte)roomData.maxPlayer;
-        options.IsVisible = true;
-        PhotonNetwork.NickName = roomData.HostName;
-        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, options,TypedLobby.Default);
-        
+        // Debug.Log($"방 생성");
+        // RoomOptions options = new RoomOptions();
+        // options.MaxPlayers = (byte)roomData.maxPlayer;
+        // options.IsVisible = true;
+        // PhotonNetwork.NickName = roomData.HostName;
+        // PhotonNetwork.CreateRoom(roomData.roomTitle, options,TypedLobby.Default);
+        PhotonNetwork.Disconnect();
         SceneLoadManager.Instance.LoadScene(new RoomScene());
     }
     

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILoby : MonoBehaviour
+public class UILoby : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_Text txtMyNicName;
     [SerializeField] private RectTransform content;
@@ -25,10 +26,38 @@ public class UILoby : MonoBehaviour
 
     private List<GameObject> _roomList = new ();
     
+    public void Connect()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
     
+    // 포톤 서버 연결시 실행
+    public override void OnConnectedToMaster()
+    {
+        print("접속성공.");
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        Debug.Log("실행?");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("로비입장...");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("방입장.");
+        Debug.Log($"{PhotonNetwork.CurrentRoom.Name}");
+    }
+
     private void Awake()
     {
         SetAddlistener();
+        Connect();
         RoomManager.Instance.createLobyRoom = SetingRoom;
     }
 
@@ -57,8 +86,6 @@ public class UILoby : MonoBehaviour
         go.GetComponent<RoomItem>().SetValue(roomData);
         _roomList.Add(go);
     }
-    
-    
 
     public void Refresh()
     {

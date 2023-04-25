@@ -1,5 +1,5 @@
-﻿using UnityEditor.iOS;
-using UnityEngine.SceneManagement;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace Class
 {

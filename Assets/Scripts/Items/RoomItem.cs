@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,10 @@ public class RoomItem : MonoBehaviour
         PopupData popupData = new PopupData() ;
         popupData.title = "입장";
         popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
-        // btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
-        //     (() => NetWorkManager.Instance.JoinRoom(roomData)))));
+        btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
+            (() =>
+            {
+                PhotonNetwork.JoinRoom(roomData.roomTitle);
+            }))));
     }
 }

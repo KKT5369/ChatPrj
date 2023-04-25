@@ -18,13 +18,13 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
-        DontDestroyOnLoad(gameObject);
     }
     
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
         print("접속성공.");
+        PhotonNetwork.JoinOrCreateRoom("Loby", new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
     // 로비 입장시 실행
@@ -46,11 +46,13 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         print("방 만들기 완료.");
+        Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
     
     public override void OnJoinedRoom()
     {
         print("방 참가 완료.");
+        Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
     
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -66,11 +68,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         print("연결 끊김.");
-    }
-
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        base.OnRoomListUpdate(roomList);
     }
 
     public override void OnLeftRoom()
