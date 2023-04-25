@@ -32,16 +32,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         print($"로비입장.");
     }
-    
-    public void OnCreatedRoom(RoomData roomData)
-    {
-        Debug.Log($"방 생성");
-        RoomOptions options = new RoomOptions();
-        options.MaxPlayers = (byte)roomData.maxPlayer;
-        options.IsVisible = true;
-        PhotonNetwork.NickName = roomData.HostName;
-        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, options,TypedLobby.Default);
-    }
 
     public override void OnCreatedRoom()
     {

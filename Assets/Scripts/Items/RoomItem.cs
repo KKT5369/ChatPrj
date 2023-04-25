@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class RoomItem : MonoBehaviour
 {
     [SerializeField] private TMP_Text txtRoomNum;
-    [SerializeField] private TMP_Text txtHostName;
     [SerializeField] private TMP_Text txtTitle;
     [SerializeField] private TMP_Text txtGameTitle;
     [SerializeField] private TMP_Text txtCurUserNum;
@@ -18,7 +17,6 @@ public class RoomItem : MonoBehaviour
     public void SetValue(RoomData roomData)
     {
         txtRoomNum.text = roomData.roomNum.ToString();
-        txtHostName.text = roomData.HostName;
         txtTitle.text = roomData.roomTitle;
         txtGameTitle.text = roomData.gameType.ToString();
         txtCurUserNum.text = "1";
@@ -31,7 +29,7 @@ public class RoomItem : MonoBehaviour
         btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
             (() =>
             {
-                PhotonNetwork.JoinRoom(roomData.roomTitle);
+                PhotonNetwork.JoinRoom(txtTitle.text);
             }))));
     }
 }

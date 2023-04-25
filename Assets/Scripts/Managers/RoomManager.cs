@@ -19,12 +19,20 @@ public class RoomManager : SingleTon<RoomManager>
         PhotonNetwork.Disconnect();
         SceneLoadManager.Instance.LoadScene(new RoomScene());
     }
+
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.Disconnect();
+        if (PhotonNetwork.JoinRoom(roomName))
+        {
+            
+        }
+    }
 }
 
 public class RoomData
 {
     public int roomNum; // OK
-    public string HostName; // Ok
     public string roomTitle; // Ok
     public GameType? gameType;
     public int maxPlayer; // ok

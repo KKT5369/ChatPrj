@@ -29,7 +29,6 @@ public class UICreateRoom : MonoBehaviour
             PopupManager.Instance.CreatePopup(popupData);
             return;
         }
-        roomData.HostName = PlayerDataManager.Instance.MyNicName;
         roomData.roomTitle = inputRoomTitle.text;
         GameType? gameType = GetGameType();
         if (gameType == null)

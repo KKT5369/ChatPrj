@@ -40,6 +40,7 @@ public class UILoby : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        int roomNum = 0;
         foreach (var v in _roomList)
         {
             Destroy(v);
@@ -51,9 +52,8 @@ public class UILoby : MonoBehaviourPunCallbacks
             var roomData = new RoomData();
             roomData.roomTitle = v.Name;
             roomData.maxPlayer = v.MaxPlayers;
-            roomData.roomNum = 1;
-            roomData.HostName = "몰라";
-            
+            roomData.roomNum = ++roomNum;
+
             var go = Instantiate(roomInfo, content);
             go.SetActive(true);
             go.GetComponent<RoomItem>().SetValue(roomData);

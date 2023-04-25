@@ -33,7 +33,7 @@ public class UIRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방입장...");
-        PhotonNetwork.NickName = _roomData.HostName;
+        PhotonNetwork.NickName = PlayerDataManager.Instance.MyNicName;
         PhotonNetwork.CurrentRoom.MaxPlayers = (byte)_roomData.maxPlayer;
         PhotonNetwork.CurrentRoom.IsOpen = true;
         SettingRoom();
