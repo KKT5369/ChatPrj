@@ -53,9 +53,8 @@ public class UIRoom : MonoBehaviourPunCallbacks
 
     void SettingRoom()
     {
-        //nicName.text = PhotonNetwork.NickName;
-        //roomTitle.text = PhotonNetwork.CurrentRoom.Name;
-        //Debug.Log(PhotonNetwork.CurrentRoom.Name);
+        nicName.text = PhotonNetwork.NickName;
+        roomTitle.text = PhotonNetwork.CurrentRoom.Name;
     }
     
     

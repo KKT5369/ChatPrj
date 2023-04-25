@@ -41,17 +41,21 @@ public class UILoby : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.Log("실행?");
+        foreach (var v in roomList)
+        {
+            var roomData = new RoomData();
+            
+            
+            var go = Instantiate(roomInfo, content);
+            go.SetActive(true);
+            go.GetComponent<RoomItem>().SetValue(roomData);
+            _roomList.Add(go);
+        }
     }
 
     public override void OnJoinedLobby()
     {
         Debug.Log("로비입장...");
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("방입장.");
-        Debug.Log($"{PhotonNetwork.CurrentRoom.Name}");
     }
 
     private void Awake()
