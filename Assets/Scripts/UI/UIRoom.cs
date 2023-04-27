@@ -1,5 +1,6 @@
 using System;
 using Class;
+using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -10,14 +11,32 @@ public class UIRoom : ConnectManager
 {
     [SerializeField] private TMP_Text roomTitle;
     [SerializeField] private TMP_Text nicName;
+    [SerializeField] private TMP_Text txtSystemMsg;
     [SerializeField] private RectTransform chatRect;
     [SerializeField] private TMP_Text chatItem;
     [SerializeField] private TMP_InputField inputTxt;
     [SerializeField] private Button btnExti;
+    
 
-    private PhotonView pv;
+    private PhotonView _pv;
     private RoomData _roomData;
+    
+    private void Start()
+    {
+        _pv = GetComponent<PhotonView>();
+        
+        Connect();
+        btnExti.onClick.AddListener((() => {
+        {
+            Disconnecting();
+            SceneLoadManager.Instance.LoadScene(new LobyScene());
+        }}));
+        
+        inputTxt.onEndEdit.AddListener(delegate { Send(); });
+    }
 
+    #region 포톤 콜백 함수
+    
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
@@ -38,12 +57,11 @@ public class UIRoom : ConnectManager
         PhotonNetwork.NickName = PlayerDataManager.Instance.MyNicName;
         PhotonNetwork.CurrentRoom.IsOpen = true;
         SettingRoom();
+        _pv.RPC(nameof(SystemMsgPopup),RpcTarget.All,PhotonNetwork.NickName);
     }
     
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("방 입장 실패...");
-        Debug.Log($"Message >>> {message}");
         if (message.Equals("Game full"))
         {
             Disconnecting();
@@ -55,23 +73,14 @@ public class UIRoom : ConnectManager
     {
         Debug.Log($"{PlayerDataManager.Instance.MyNicName} 님이 {PhotonNetwork.CurrentRoom.Name} 을 떠나감");
     }
+    
 
-    private void Start()
-    {
-        Connect();
-        
-        btnExti.onClick.AddListener((() => {
-        {
-            Disconnecting();
-            SceneLoadManager.Instance.LoadScene(new LobyScene());
-        }}));
-        
-        inputTxt.onEndEdit.AddListener(delegate { Send(); });
-    }
+    #endregion
+    
+    
 
     void SettingRoom()
     {
-        pv = GetComponent<PhotonView>();
         nicName.text = PhotonNetwork.NickName;
         roomTitle.text = PhotonNetwork.CurrentRoom.Name;
     }
@@ -79,7 +88,7 @@ public class UIRoom : ConnectManager
     public void Send()
     {
         string chat = $"{nicName.text} : {inputTxt.text}";
-        pv.RPC(nameof(ChatRPC),RpcTarget.All,chat);
+        _pv.RPC(nameof(ChatRPC),RpcTarget.All,chat);
         chatItem.text = "";
     }
     
@@ -91,7 +100,12 @@ public class UIRoom : ConnectManager
         item.SetActive(true);
     }
     
-    
+    [PunRPC]
+    public void SystemMsgPopup(string nicName)
+    {
+        txtSystemMsg.text = $"{this.nicName} 님이 두두둥장!!";
+        txtSystemMsg.DOFade(0f, 3f);
+    }
     
     
 }
