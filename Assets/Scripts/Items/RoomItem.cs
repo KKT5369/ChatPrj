@@ -19,9 +19,11 @@ public class RoomItem : MonoBehaviour
         txtRoomNum.text = roomData.roomNum.ToString();
         txtTitle.text = roomData.roomTitle;
         txtGameTitle.text = roomData.gameType.ToString();
-        txtCurUserNum.text = "1";
+        txtCurUserNum.text = roomData.purPlayerNum.ToString();
         txtMaxUserNum.text = roomData.maxPlayer.ToString();
-
+        
+        
+        
         Button btn = GetComponent<Button>();
         PopupData popupData = new PopupData() ;
         popupData.title = "입장";
@@ -29,7 +31,7 @@ public class RoomItem : MonoBehaviour
         btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
             (() =>
             {
-                PhotonNetwork.JoinRoom(txtTitle.text);
+                RoomManager.Instance.JoinRoom(roomData);
             }))));
     }
 }

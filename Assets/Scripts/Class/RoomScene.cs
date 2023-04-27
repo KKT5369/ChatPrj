@@ -1,7 +1,4 @@
-﻿using Photon.Pun;
-using UnityEngine;
-
-namespace Class
+﻿namespace Class
 {
     public class RoomScene : Iscene
     {

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILoby : MonoBehaviourPunCallbacks
+public class UILoby : ConnectManager
 {
     [SerializeField] private TMP_Text txtMyNicName;
     [SerializeField] private RectTransform content;
@@ -25,16 +25,10 @@ public class UILoby : MonoBehaviourPunCallbacks
     [SerializeField] private Button btnNextPage;
 
     private List<GameObject> _roomList = new ();
-    
-    public void Connect()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-    
+
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
-        print("접속성공.");
         PhotonNetwork.JoinLobby();
     }
 
@@ -46,11 +40,11 @@ public class UILoby : MonoBehaviourPunCallbacks
             Destroy(v);
         }
         _roomList.Clear();
-        Debug.Log($"{roomList.Count}");
         foreach (var v in roomList)
         {
             var roomData = new RoomData();
             roomData.roomTitle = v.Name;
+            roomData.purPlayerNum = v.PlayerCount;
             roomData.maxPlayer = v.MaxPlayers;
             roomData.roomNum = ++roomNum;
 
@@ -70,7 +64,6 @@ public class UILoby : MonoBehaviourPunCallbacks
     {
         SetAddlistener();
         Connect();
-        RoomManager.Instance.createLobyRoom = SetingRoom;
     }
 
     private void Start()
@@ -91,30 +84,17 @@ public class UILoby : MonoBehaviourPunCallbacks
         txtMyNicName.text = PlayerDataManager.Instance.MyNicName;
     }
 
-    public void SetingRoom(RoomData roomData)
+    public void Refresh(List<RoomInfo> roomList)
     {
-        var go = Instantiate(roomInfo, content);
-        go.SetActive(true);
-        go.GetComponent<RoomItem>().SetValue(roomData);
-        _roomList.Add(go);
-    }
-
-    public void Refresh()
-    {
-        foreach (var v in _roomList)
-        {
-            Destroy(v);
-        }
-        _roomList.Clear();
-        
+        // todo 기능 추가
     }
 
     void SetAddlistener() 
     {
         btnNicNameModify.onClick.AddListener((() => InputPopupManager.Instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
-        btnExit.onClick.AddListener((() => Debug.Log("종료")));
+        btnExit.onClick.AddListener((() => Application.Quit()));
         
         btnCreateRoom.onClick.AddListener((() => UIManager.Instance.CreateUI<UICreateRoom>()));
-        btnRoomRefresh.onClick.AddListener(Refresh);
+        
     }
 }
