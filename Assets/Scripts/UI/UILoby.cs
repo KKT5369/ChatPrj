@@ -25,6 +25,7 @@ public class UILoby : ConnectManager
     [SerializeField] private Button btnNextPage;
 
     private List<GameObject> _roomList = new ();
+    public PhotonView pv;
 
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
@@ -58,6 +59,7 @@ public class UILoby : ConnectManager
     public override void OnJoinedLobby()
     {
         Debug.Log("로비입장...");
+        Debug.Log($"ViewID >>> {pv.ViewID}");
     }
 
     private void Awake()

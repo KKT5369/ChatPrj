@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 7996285140476548976}
   - component: {fileID: 7996285140476548983}
   - component: {fileID: -6821989523561903391}
-  - component: {fileID: 6447908566503137661}
+  - component: {fileID: 219161261}
   m_Layer: 5
   m_Name: UIRoom
   m_TagString: Untagged
@@ -895,7 +895,8 @@ MonoBehaviour:
   chatItem: {fileID: 7996285141228716908}
   inputTxt: {fileID: 7996285141101863897}
   btnExti: {fileID: 7996285142045518506}
---- !u!114 &6447908566503137661
+  pv: {fileID: 219161261}
+--- !u!114 &219161261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,4 +1,7 @@
-﻿namespace Class
+﻿using Photon.Pun;
+using UnityEngine;
+
+namespace Class
 {
     public class RoomScene : Iscene
     {

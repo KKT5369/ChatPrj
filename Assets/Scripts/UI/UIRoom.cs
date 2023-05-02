@@ -1,10 +1,11 @@
-using System;
 using Class;
 using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIRoom : ConnectManager
@@ -18,13 +19,12 @@ public class UIRoom : ConnectManager
     [SerializeField] private Button btnExti;
     
 
-    private PhotonView _pv;
+    public PhotonView pv;
     private RoomData _roomData;
     
     private void Start()
     {
-        _pv = GetComponent<PhotonView>();
-        
+        Debug.Log("Start 실행...");
         Connect();
         btnExti.onClick.AddListener((() => {
         {
@@ -54,10 +54,12 @@ public class UIRoom : ConnectManager
     public override void OnJoinedRoom()
     {
         Debug.Log("방입장...");
+        Debug.Log(PhotonNetwork.IsMasterClient);
+        Debug.Log(photonView.ViewID);
         PhotonNetwork.NickName = PlayerDataManager.Instance.MyNicName;
         PhotonNetwork.CurrentRoom.IsOpen = true;
         SettingRoom();
-        _pv.RPC(nameof(SystemMsgPopup),RpcTarget.All,PhotonNetwork.NickName);
+        pv.RPC(nameof(SystemMsgPopup),RpcTarget.All,PhotonNetwork.NickName);
     }
     
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -88,7 +90,7 @@ public class UIRoom : ConnectManager
     public void Send()
     {
         string chat = $"{nicName.text} : {inputTxt.text}";
-        _pv.RPC(nameof(ChatRPC),RpcTarget.All,chat);
+        pv.RPC(nameof(ChatRPC),RpcTarget.All,chat);
         chatItem.text = "";
     }
     
@@ -103,7 +105,7 @@ public class UIRoom : ConnectManager
     [PunRPC]
     public void SystemMsgPopup(string nicName)
     {
-        txtSystemMsg.text = $"{this.nicName} 님이 두두둥장!!";
+        txtSystemMsg.text = $"{nicName} 님이 두두둥장!!";
         txtSystemMsg.DOFade(0f, 3f);
     }
     
