@@ -15,7 +15,7 @@ public class RoomManager : SingleTon<RoomManager>
     {
         _roomData = roomData;
         PhotonNetwork.Disconnect();
-        SceneLoadManager.Instance.LoadScene(new RoomScene());
+        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
     }
 
     public void JoinRoom(RoomData roomData)
@@ -23,7 +23,7 @@ public class RoomManager : SingleTon<RoomManager>
         _roomData = roomData;
         //if (!PhotonNetwork.JoinRoom(roomName)) return;
         PhotonNetwork.Disconnect();
-        SceneLoadManager.Instance.LoadScene(new RoomScene());
+        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
     }
 }
 

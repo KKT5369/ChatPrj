@@ -27,7 +27,7 @@ public class UIRoom : ConnectManager
         btnExti.onClick.AddListener((() => {
         {
             Disconnecting();
-            SceneLoadManager.Instance.LoadScene(new LobyScene());
+            SceneLoadManager.Instance.LoadScene(SceneType.LobyScene);
         }}));
         
         inputTxt.onEndEdit.AddListener(delegate
@@ -69,7 +69,7 @@ public class UIRoom : ConnectManager
         if (message.Equals("Game full"))
         {
             Disconnecting();
-            PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene(new LobyScene());}));
+            PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene(SceneType.LobyScene);}));
         }
     }
 

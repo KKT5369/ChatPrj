@@ -14,8 +14,8 @@ public class UILoading : MonoBehaviour
     
     IEnumerator SceneLoading()
     {
-        Iscene scene = SceneLoadManager.Instance.Scene;
-        AsyncOperation op = SceneManager.LoadSceneAsync(scene.GetType().Name);
+        SceneType scene = SceneLoadManager.Instance.Scene;
+        AsyncOperation op = SceneManager.LoadSceneAsync(scene.ToString());
         op.allowSceneActivation = false;
 
         progressBar.fillAmount = 0f;
