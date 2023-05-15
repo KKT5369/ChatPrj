@@ -3,9 +3,7 @@ using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIRoom : ConnectManager
@@ -32,7 +30,11 @@ public class UIRoom : ConnectManager
             SceneLoadManager.Instance.LoadScene(new LobyScene());
         }}));
         
-        inputTxt.onEndEdit.AddListener(delegate { Send(); });
+        inputTxt.onEndEdit.AddListener(delegate
+        {
+            if(inputTxt.text.Equals("")) return;
+            Send();
+        });
     }
 
     #region 포톤 콜백 함수
@@ -67,7 +69,7 @@ public class UIRoom : ConnectManager
         if (message.Equals("Game full"))
         {
             Disconnecting();
-            PopupManager.Instance.CreatePopup(new PopupData("입장불가","풀방이네요"),(() => {SceneLoadManager.Instance.LoadScene(new LobyScene());}));
+            PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene(new LobyScene());}));
         }
     }
 
@@ -91,7 +93,7 @@ public class UIRoom : ConnectManager
     {
         string chat = $"{nicName.text} : {inputTxt.text}";
         pv.RPC(nameof(ChatRPC),RpcTarget.All,chat);
-        chatItem.text = "";
+        inputTxt.text = "";
     }
     
     [PunRPC]

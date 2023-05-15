@@ -1,6 +1,3 @@
-using System;
-using Class;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : SingleTon<SceneLoadManager>
