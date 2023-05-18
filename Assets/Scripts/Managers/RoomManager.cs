@@ -1,5 +1,3 @@
-using System;
-using Class;
 using Photon.Pun;
 
 public class RoomManager : SingleTon<RoomManager>
@@ -14,16 +12,14 @@ public class RoomManager : SingleTon<RoomManager>
     public void CreateRoom(RoomData roomData)
     {
         _roomData = roomData;
-        PhotonNetwork.Disconnect();
-        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
+        SceneLoadManager.Instance.LoadScene<RoomScene>();
     }
 
     public void JoinRoom(RoomData roomData)
     {
         _roomData = roomData;
         //if (!PhotonNetwork.JoinRoom(roomName)) return;
-        PhotonNetwork.Disconnect();
-        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
+        SceneLoadManager.Instance.LoadScene<RoomScene>();
     }
 }
 

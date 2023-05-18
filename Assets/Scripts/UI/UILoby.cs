@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILoby : ConnectManager
+public class UILoby : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_Text txtMyNicName;
     [SerializeField] private RectTransform content;
@@ -26,12 +26,6 @@ public class UILoby : ConnectManager
 
     private List<GameObject> _roomList = new ();
     public PhotonView pv;
-
-    // 포톤 서버 연결시 실행
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby();
-    }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -56,16 +50,9 @@ public class UILoby : ConnectManager
         }
     }
 
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("로비입장...");
-        Debug.Log($"ViewID >>> {pv.ViewID}");
-    }
-
     private void Awake()
     {
         SetAddlistener();
-        Connect();
     }
 
     private void Start()

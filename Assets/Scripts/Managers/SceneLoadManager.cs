@@ -1,20 +1,22 @@
+using System;
+using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : SingleTon<SceneLoadManager>
 {
-    private SceneType _scene;
+    private Iscene _scene;
 
-    public SceneType Scene { get => _scene; }
+    public Iscene Scene { get => _scene; }
     
-    public void LoadScene(SceneType scene)
+    public void LoadScene<T>() where T : Iscene,new()
     {
-        _scene = scene;
+        _scene = new T();
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.LoadScene("LoadingScene");
     }
     
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
-        //_scene.SceneSetting();
+        _scene.SceneSetting();
     }
 }

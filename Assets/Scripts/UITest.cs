@@ -14,7 +14,7 @@ enum asd
     join,
 }
 
-public class UITest : ConnectManager
+public class UITest : ConnectBase
 {
     public Button btnIn;
     public Button btnOut;

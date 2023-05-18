@@ -1,6 +1,3 @@
-using Class;
-using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
