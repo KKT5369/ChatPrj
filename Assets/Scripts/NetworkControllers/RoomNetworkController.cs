@@ -40,7 +40,7 @@ public class RoomNetworkController : ConnectBase
     
     public override void OnLeftRoom()
     {
-        Debug.Log($"{PlayerDataManager.Instance.MyNicName} 님이 {PhotonNetwork.CurrentRoom.Name} 을 떠나감");
+        
     }
     
 }
