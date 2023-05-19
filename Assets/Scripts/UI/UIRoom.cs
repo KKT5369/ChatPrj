@@ -62,8 +62,11 @@ public class UIRoom : ConnectBase
     [PunRPC]
     public void SystemMsgPopup(string nicName)
     {
+        txtSystemMsg.alpha = 255f;
+        GameObject go = txtSystemMsg.gameObject;
+        go.SetActive(true);
         txtSystemMsg.text = $"{nicName} 님이 두두둥장!!";
-        txtSystemMsg.DOFade(0f, 3f);
+        txtSystemMsg.DOFade(0f, 2f).OnComplete((() => go.SetActive(false)));
     }
     
     
