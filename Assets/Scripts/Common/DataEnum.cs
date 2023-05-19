@@ -18,3 +18,9 @@ public enum SceneType
     RoomScene,
     GameScene,
 }
+
+enum MoveState
+{
+    Idle,
+    Move,
+}
