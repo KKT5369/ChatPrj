@@ -42,6 +42,7 @@ MonoBehaviour:
   - InputText
   - ChatRPC
   - SystemMsgPopup
+  - UpdateLeadyBtn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

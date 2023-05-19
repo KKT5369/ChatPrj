@@ -10,7 +10,10 @@ public class InputManager : SingleTon<InputManager>
     
     private void Update()
     {
-        move.Invoke();
+        if (move != null)
+        {
+            move.Invoke();
+        }
     }
 }
 
