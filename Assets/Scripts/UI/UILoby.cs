@@ -37,6 +37,8 @@ public class UILoby : MonoBehaviourPunCallbacks
         _roomList.Clear();
         foreach (var v in roomList)
         {
+            if (v.MaxPlayers == 0)
+                continue;
             var roomData = new RoomData();
             roomData.roomTitle = v.Name;
             roomData.purPlayerNum = v.PlayerCount;

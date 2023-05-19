@@ -14,6 +14,8 @@ public class RoomItem : MonoBehaviour
     [SerializeField] private TMP_Text txtCurUserNum;
     [SerializeField] private TMP_Text txtMaxUserNum;
 
+    
+    
     public void SetValue(RoomData roomData)
     {
         txtRoomNum.text = roomData.roomNum.ToString();
@@ -25,13 +27,28 @@ public class RoomItem : MonoBehaviour
         
         
         Button btn = GetComponent<Button>();
+
+        btn.onClick.AddListener((() => JoinRoom(roomData)));
+    }
+
+    void JoinRoom(RoomData roomData)
+    {
+        
         PopupData popupData = new PopupData() ;
-        popupData.title = "입장";
-        popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
-        btn.onClick.AddListener((() => PopupManager.Instance.CreatePopup(popupData,
-            (() =>
-            {
-                RoomManager.Instance.JoinRoom(roomData);
-            }))));
+        if (txtCurUserNum.text == txtMaxUserNum.text)
+        {
+            popupData.title = "정원 초가";
+            popupData.body = txtTitle.text + " 못가요";
+            PopupManager.Instance.CreatePopup(popupData);
+        }
+        else
+        {
+            popupData.title = "입장";
+            popupData.body = txtTitle.text + " 방에 입장 하시겠습니까?";
+            PopupManager.Instance.CreatePopup(popupData,
+                (() => RoomManager.Instance.JoinRoom(roomData)));
+        }
+        
+        
     }
 }
