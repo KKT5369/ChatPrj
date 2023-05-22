@@ -1,10 +1,13 @@
 using System.Collections;
+using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UILoading : MonoBehaviour
 {
+    [SerializeField] private TMP_Text title;
     [SerializeField] private Image progressBar;
 
     private void Start()
@@ -14,6 +17,14 @@ public class UILoading : MonoBehaviour
     
     IEnumerator SceneLoading()
     {
+        title.text = "서버에 연결중 입니다...";
+        while (NetWorkManager.Instance.ConnectedCheck() == false)
+        {
+            yield return progressBar.fillAmount = 0.1f;
+        }
+        
+        title.text = "로딩중...";
+
         Iscene scene = SceneLoadManager.Instance.Scene;
         AsyncOperation op = SceneManager.LoadSceneAsync(scene.ToString());
         // if (op == null)

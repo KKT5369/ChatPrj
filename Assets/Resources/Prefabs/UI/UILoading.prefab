@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78dc51e05ab24ff479959ff5a315c9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 866271912166448241}
   progressBar: {fileID: 866271912533827972}
 --- !u!1 &866271912166448255
 GameObject:

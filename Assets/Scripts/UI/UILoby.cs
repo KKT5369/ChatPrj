@@ -28,8 +28,14 @@ public class UILoby : MonoBehaviourPunCallbacks
     private List<GameObject> _roomList = new ();
     public PhotonView pv;
 
+    private void Awake()
+    {
+        SetAddlistener();
+    }
+    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        Debug.Log("룸 업데이트 <<< ");
         int roomNum = 0;
         foreach (var v in _roomList)
         {
@@ -53,10 +59,7 @@ public class UILoby : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Awake()
-    {
-        SetAddlistener();
-    }
+    
 
     private void Start()
     {
@@ -74,11 +77,6 @@ public class UILoby : MonoBehaviourPunCallbacks
     public void SetUserName()
     {
         txtMyNicName.text = PlayerDataManager.Instance.MyNicName;
-    }
-
-    public void Refresh(List<RoomInfo> roomList)
-    {
-        // todo 기능 추가
     }
 
     void SetAddlistener() 

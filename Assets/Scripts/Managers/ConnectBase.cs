@@ -6,8 +6,8 @@ public class ConnectBase : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        Disconnecting();
-        Connect();
+        //Disconnecting();
+        //Connect();
     }
 
     public void Connect()

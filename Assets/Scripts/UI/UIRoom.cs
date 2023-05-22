@@ -49,6 +49,7 @@ public class UIRoom : MonoBehaviourPunCallbacks
     {
         btnExti.onClick.AddListener((() => {
         {
+            PhotonNetwork.LeaveRoom();
             SceneLoadManager.Instance.LoadScene<LobyScene>();
         }}));
         

@@ -1,32 +1,77 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     private readonly string _version = "1.0f";
     private static NetWorkManager _instance;
-
-    private void Start()
+    
+    public static NetWorkManager Instance
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.GameVersion = _version;
-        Connect();
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject go = GameObject.Find(typeof(NetWorkManager).ToString());
+                if (go == null)
+                {
+                    go = new GameObject(typeof(NetWorkManager).ToString());
+                    _instance = go.AddComponent<NetWorkManager>();
+                }
+                else
+                {
+                    _instance = go.GetComponent<NetWorkManager>();
+                }
+            }
+
+            return _instance;
+        }
+    }
+    
+    private void Awake()
+    {
+        GameObject parentGo = GameObject.Find("Managers");
+        if (parentGo == null)
+        {
+            parentGo = new GameObject("Managers");
+            gameObject.transform.parent = parentGo.transform;
+            DontDestroyOnLoad(parentGo);
+        }
+        else
+        {
+            gameObject.transform.parent = parentGo.transform;
+        }
     }
 
     public void Connect()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.GameVersion = _version;
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public bool ConnectedCheck()
+    {
+        return PhotonNetwork.IsConnected;
+        
+    }
+
+    public void CreateRoom()
+    {
+        var roomData = RoomManager.Instance.RoomData;
+        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)roomData.maxPlayer }, null);
     }
     
     // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
         print("접속성공.");
-        PhotonNetwork.JoinOrCreateRoom("Loby", new RoomOptions() { MaxPlayers = 10 }, null);
+        PhotonNetwork.JoinLobby();
     }
-
+    
     // 로비 입장시 실행
     public override void OnJoinedLobby()
     {
@@ -36,13 +81,11 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         print("방 만들기 완료.");
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
     
     public override void OnJoinedRoom()
     {
         print("방 참가 완료.");
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
     
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -64,4 +107,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("방 나감");
     }
+    
+    
 }
