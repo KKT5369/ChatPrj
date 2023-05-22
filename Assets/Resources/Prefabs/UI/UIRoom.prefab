@@ -560,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1839362188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1561,6 +1561,7 @@ MonoBehaviour:
   btnExti: {fileID: 7996285142045518506}
   leadyStstusRect: {fileID: 1259403381}
   btnReady: {fileID: 56006301}
+  btnGameStart: {fileID: 1839362189}
   pv: {fileID: 219161261}
 --- !u!114 &219161261
 MonoBehaviour:

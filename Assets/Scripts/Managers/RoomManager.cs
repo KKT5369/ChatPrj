@@ -1,3 +1,5 @@
+using ExitGames.Client.Photon;
+using JetBrains.Annotations;
 using Photon.Pun;
 
 public class RoomManager : SingleTon<RoomManager>
@@ -21,6 +23,12 @@ public class RoomManager : SingleTon<RoomManager>
         //if (!PhotonNetwork.JoinRoom(roomName)) return;
         SceneLoadManager.Instance.LoadScene<RoomScene>();
     }
+
+    public void RandomRoom()
+    {
+        SceneLoadManager.Instance.LoadScene<RoomScene>();
+    }
+    
 }
 
 public class RoomData

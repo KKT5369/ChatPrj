@@ -33,12 +33,11 @@ public class RoomItem : MonoBehaviour
 
     void JoinRoom(RoomData roomData)
     {
-        
         PopupData popupData = new PopupData() ;
         if (txtCurUserNum.text == txtMaxUserNum.text)
         {
             popupData.title = "정원 초가";
-            popupData.body = txtTitle.text + " 못가요";
+            popupData.body = txtTitle.text + " 방은 더이상 자리가 없어요.";
             PopupManager.Instance.CreatePopup(popupData);
         }
         else
@@ -48,7 +47,5 @@ public class RoomItem : MonoBehaviour
             PopupManager.Instance.CreatePopup(popupData,
                 (() => RoomManager.Instance.JoinRoom(roomData)));
         }
-        
-        
     }
 }

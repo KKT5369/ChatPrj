@@ -13,8 +13,14 @@ public class RoomNetworkController : ConnectBase
     {
         _roomData = RoomManager.Instance.RoomData;
         print($"접속성공.");
-        
-        PhotonNetwork.JoinOrCreateRoom(_roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)_roomData.maxPlayer }, null);
+        if (_roomData == null)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+        else
+        {
+            PhotonNetwork.JoinOrCreateRoom(_roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)_roomData.maxPlayer }, null);
+        }
     }
 
     public override void OnJoinedRoom()
@@ -37,10 +43,4 @@ public class RoomNetworkController : ConnectBase
             PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene<LobyScene>();}));
         }
     }
-    
-    public override void OnLeftRoom()
-    {
-        
-    }
-    
 }

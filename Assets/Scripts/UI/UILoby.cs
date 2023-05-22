@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UILoby : MonoBehaviourPunCallbacks
@@ -19,7 +20,7 @@ public class UILoby : MonoBehaviourPunCallbacks
     
     [Header("Room Buttons")]
     [SerializeField] private Button btnCreateRoom;
-    [SerializeField] private Button btnJoinRoom;
+    [SerializeField] private Button btnRandomRoom;
     [SerializeField] private Button btnRoomRefresh;
     [SerializeField] private Button btnPrePage;
     [SerializeField] private Button btnNextPage;
@@ -84,7 +85,7 @@ public class UILoby : MonoBehaviourPunCallbacks
     {
         btnNicNameModify.onClick.AddListener((() => InputPopupManager.Instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
         btnExit.onClick.AddListener((() => Application.Quit()));
-        
+        btnRandomRoom.onClick.AddListener((() => SceneLoadManager.Instance.LoadScene<RoomScene>()));
         btnCreateRoom.onClick.AddListener((() => UIManager.Instance.CreateUI<UICreateRoom>()));
         
     }

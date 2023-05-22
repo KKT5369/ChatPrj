@@ -28,8 +28,8 @@ public class UILoading : MonoBehaviour
         while (progressBar.fillAmount <= 1f)
         {
             progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-            yield return new WaitForSeconds(0.001f);
-            if (progressBar.fillAmount >= 0.98f)
+            yield return new WaitForSeconds(0.0001f);
+            if (progressBar.fillAmount >= 0.89f && op.progress >= 0.89f)
             {
                 progressBar.fillAmount = 1f;
                 yield return new WaitForSeconds(0.5f);

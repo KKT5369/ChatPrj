@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIRoom : ConnectBase
+public class UIRoom : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_Text roomTitle;
     [SerializeField] private TMP_Text nicName;
@@ -19,8 +19,10 @@ public class UIRoom : ConnectBase
     [Header("레디창")]
     [SerializeField] private RectTransform leadyStstusRect;
     [SerializeField] private GameObject btnReady;
+    [SerializeField] private Button btnGameStart;
     private List<GameObject> _leadyButtons = new();
 
+    private Dictionary<int, Player> _players;
 
     public PhotonView pv;
 
@@ -36,6 +38,11 @@ public class UIRoom : ConnectBase
         roomTitle.text = PhotonNetwork.CurrentRoom.Name;
         pv.RPC(nameof(SystemMsgPopup),RpcTarget.All,PhotonNetwork.NickName);
         pv.RPC(nameof(UpdateLeadyBtn),RpcTarget.All);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            btnGameStart.gameObject.SetActive(true);
+        }
     }
 
     void SetAddlistener()
@@ -50,6 +57,11 @@ public class UIRoom : ConnectBase
             if(inputTxt.text.Equals("")) return;
             Send();
         });
+        
+        btnGameStart.onClick.AddListener((() =>
+        {
+            PhotonNetwork.LoadLevel("TestScene");
+        }));
     }
 
     public void Send()
@@ -90,15 +102,22 @@ public class UIRoom : ConnectBase
         }
         
         Player player;
-        int playersCount = PhotonNetwork.CurrentRoom.Players.Count;
-        Dictionary<int,Player> players = PhotonNetwork.CurrentRoom.Players;
-        for (int i = 0; i < playersCount; i++)
+        _players = PhotonNetwork.CurrentRoom.Players;
+        for (int i = 0; i < _players.Count ; i++)
         {
             var go = Instantiate(btnReady, leadyStstusRect);
             go.SetActive(true);
-            players.TryGetValue(i+1, out player);
+            _players.TryGetValue(i+1, out player);
             go.transform.GetChild(0).GetComponent<TMP_Text>().text = player.NickName;
             _leadyButtons.Add(go);
         }
     }
+
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        Debug.Log("퇴장시 실행");
+        pv.RPC(nameof(UpdateLeadyBtn),RpcTarget.All);
+    }
+    
+    
 }

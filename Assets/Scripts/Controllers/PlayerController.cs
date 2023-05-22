@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks
@@ -69,6 +70,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         
         Debug.DrawRay(transform.position,transform.forward * maxRay,Color.red);
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.Instance.move -= Moving;
     }
 }
 
