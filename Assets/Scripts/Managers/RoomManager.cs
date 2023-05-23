@@ -14,7 +14,7 @@ public class RoomManager : SingleTon<RoomManager>
     public void CreateOrJoinRoom(RoomData roomData)
     {
         _roomData = roomData;
-        NetWorkManager.Instance.CreateOrJoinRoom();
+        //NetWorkManager.Instance.CreateOrJoinRoom();
         SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
     }
 

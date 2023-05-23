@@ -5,6 +5,6 @@ public class RoomScene :Iscene
 {
     public void SceneSetting()
     {
-        NetWorkManager.Instance.CreateOrJoinRoom();
+        
     }
 }

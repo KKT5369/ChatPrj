@@ -31,11 +31,12 @@ public class UILoby : MonoBehaviourPunCallbacks
     private void Awake()
     {
         SetAddlistener();
+        RoomListUpdate();
     }
     
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    public void RoomListUpdate()
     {
-        Debug.Log("룸 업데이트 <<< ");
+        List<RoomInfo> roomList = NetWorkManager.Instance.RoomList;
         int roomNum = 0;
         foreach (var v in _roomList)
         {
@@ -85,6 +86,6 @@ public class UILoby : MonoBehaviourPunCallbacks
         btnExit.onClick.AddListener((() => Application.Quit()));
         btnRandomRoom.onClick.AddListener((() => RoomManager.Instance.RandomRoom()));
         btnCreateRoom.onClick.AddListener((() => UIManager.Instance.CreateUI<UICreateRoom>()));
-        
+        btnRoomRefresh.onClick.AddListener(RoomListUpdate);
     }
 }

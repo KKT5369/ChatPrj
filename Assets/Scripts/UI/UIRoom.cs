@@ -109,7 +109,7 @@ public class UIRoom : MonoBehaviourPunCallbacks
         {
             var go = Instantiate(btnReady, leadyStstusRect);
             go.SetActive(true);
-            _players.TryGetValue(i+1, out player);
+            _players.TryGetValue(i + 1 ,out player);
             go.transform.GetChild(0).GetComponent<TMP_Text>().text = player.NickName;
             _leadyButtons.Add(go);
         }
@@ -120,6 +120,4 @@ public class UIRoom : MonoBehaviourPunCallbacks
         Debug.Log("퇴장시 실행");
         pv.RPC(nameof(UpdateLeadyBtn),RpcTarget.All);
     }
-    
-    
 }

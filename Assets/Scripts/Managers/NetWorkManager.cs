@@ -8,9 +8,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     private readonly string _version = "1.0f";
     private static NetWorkManager _instance;
-
+    
     private bool _isLoby;
     private bool _isRoom;
+    private List<RoomInfo> _roomList;
     public bool IsLoby
     {
         get => _isLoby;
@@ -20,6 +21,11 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         get => _isRoom;
     }
     
+    public List<RoomInfo> RoomList
+    {
+        get => _roomList;
+    }
+
 
     #region 싱글톤
     public static NetWorkManager Instance
@@ -75,15 +81,16 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-    public void CreateOrJoinRoom()
-    {
-        var roomData = RoomManager.Instance.RoomData;
-        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)roomData.maxPlayer }, null);
-    }
+    
 
     public void RandomJoinRoom()
     {
         PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        _roomList = roomList;
     }
 
 
@@ -99,11 +106,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         print("방 만들기 완료.");
     }
     
-    public override void OnJoinedRoom()
-    {
-        print("방 참가 완료.");
-        _isRoom = true;
-    }
+    
     
     public override void OnCreateRoomFailed(short returnCode, string message)
     {

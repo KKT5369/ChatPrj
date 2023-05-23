@@ -23,10 +23,10 @@ public class UILoading : MonoBehaviour
         op.allowSceneActivation = false;
         progressBar.fillAmount = 0f;
 
-        while(!NetworkConnectingCheck(scene))
-        {
-            yield return null;
-        }
+        // while(!NetworkConnectingCheck(scene))
+        // {
+        //     yield return null;
+        // }
 
         title.text = "준비가 거이다 끝났어요!";
         float timer = Time.unscaledDeltaTime;
