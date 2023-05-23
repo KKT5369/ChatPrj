@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Photon.Pun;
 using TMPro;
@@ -17,23 +18,17 @@ public class UILoading : MonoBehaviour
     
     IEnumerator SceneLoading()
     {
-        title.text = "서버에 연결중 입니다...";
-        while (NetWorkManager.Instance.ConnectedCheck() == false)
-        {
-            yield return progressBar.fillAmount = 0.1f;
-        }
-        
-        title.text = "로딩중...";
-
-        Iscene scene = SceneLoadManager.Instance.Scene;
+        SceneType scene = SceneLoadManager.Instance.Scene;
         AsyncOperation op = SceneManager.LoadSceneAsync(scene.ToString());
-        // if (op == null)
-        // {
-        //     SceneManager.LoadScene("LobyScene");
-        // }
         op.allowSceneActivation = false;
-
         progressBar.fillAmount = 0f;
+
+        while(!NetworkConnectingCheck(scene))
+        {
+            yield return null;
+        }
+
+        title.text = "준비가 거이다 끝났어요!";
         float timer = Time.unscaledDeltaTime;
         
         while (progressBar.fillAmount <= 1f)
@@ -49,5 +44,21 @@ public class UILoading : MonoBehaviour
                 yield break;
             }
         }
+    }
+
+    bool NetworkConnectingCheck(SceneType sceneType)
+    {
+        switch (sceneType)
+        {
+            case SceneType.LobyScene:
+                title.text = "로비로 연결중 입니다...";
+                progressBar.fillAmount = 0.2f;
+                return NetWorkManager.Instance.IsLoby;
+            case SceneType.RoomScene:
+                title.text = "방으로 이동중 입니다...";
+                progressBar.fillAmount = 0.2f;
+                return NetWorkManager.Instance.IsRoom;
+        }
+        return false;
     }
 }

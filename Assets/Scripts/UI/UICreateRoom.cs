@@ -36,7 +36,7 @@ public class UICreateRoom : MonoBehaviour
         roomData.gameType = gameType;
         roomData.maxPlayer = userNumberValue.value + 1;
         
-        RoomManager.Instance.CreateRoom(roomData);
+        RoomManager.Instance.CreateOrJoinRoom(roomData);
         UIManager.Instance.CloseUI(gameObject);
     }
 

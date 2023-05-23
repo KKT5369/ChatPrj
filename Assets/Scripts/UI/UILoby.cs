@@ -83,7 +83,7 @@ public class UILoby : MonoBehaviourPunCallbacks
     {
         btnNicNameModify.onClick.AddListener((() => InputPopupManager.Instance.CreatePopup<UIInputPopup>(PopupType.ModifyNicName)));
         btnExit.onClick.AddListener((() => Application.Quit()));
-        btnRandomRoom.onClick.AddListener((() => SceneLoadManager.Instance.LoadScene<RoomScene>()));
+        btnRandomRoom.onClick.AddListener((() => RoomManager.Instance.RandomRoom()));
         btnCreateRoom.onClick.AddListener((() => UIManager.Instance.CreateUI<UICreateRoom>()));
         
     }

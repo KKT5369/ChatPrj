@@ -8,7 +8,20 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     private readonly string _version = "1.0f";
     private static NetWorkManager _instance;
+
+    private bool _isLoby;
+    private bool _isRoom;
+    public bool IsLoby
+    {
+        get => _isLoby;
+    }
+    public bool IsRoom
+    {
+        get => _isRoom;
+    }
     
+
+    #region 싱글톤
     public static NetWorkManager Instance
     {
         get
@@ -45,6 +58,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             gameObject.transform.parent = parentGo.transform;
         }
     }
+    
+
+    #endregion
 
     public void Connect()
     {
@@ -52,30 +68,30 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.GameVersion = _version;
         PhotonNetwork.ConnectUsingSettings();
     }
-
-    public bool ConnectedCheck()
-    {
-        return PhotonNetwork.IsConnected;
-        
-    }
-
-    public void CreateRoom()
-    {
-        var roomData = RoomManager.Instance.RoomData;
-        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)roomData.maxPlayer }, null);
-    }
     
-    // 포톤 서버 연결시 실행
     public override void OnConnectedToMaster()
     {
         print("접속성공.");
         PhotonNetwork.JoinLobby();
     }
-    
+
+    public void CreateOrJoinRoom()
+    {
+        var roomData = RoomManager.Instance.RoomData;
+        PhotonNetwork.JoinOrCreateRoom(roomData.roomTitle, new RoomOptions() { MaxPlayers = (byte)roomData.maxPlayer }, null);
+    }
+
+    public void RandomJoinRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+
     // 로비 입장시 실행
     public override void OnJoinedLobby()
     {
         print($"로비입장.");
+        _isLoby = true;
     }
 
     public override void OnCreatedRoom()
@@ -86,6 +102,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         print("방 참가 완료.");
+        _isRoom = true;
     }
     
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -95,7 +112,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        print("방 참가 실패.");
+        if (message.Equals("Game full"))
+        {
+            PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene(SceneType.LobyScene);}));
+        }
     }
     
     public override void OnDisconnected(DisconnectCause cause)
@@ -107,6 +127,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("방 나감");
     }
-    
-    
 }
+
+

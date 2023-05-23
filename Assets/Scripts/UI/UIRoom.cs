@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIRoom : MonoBehaviourPunCallbacks
@@ -50,7 +51,7 @@ public class UIRoom : MonoBehaviourPunCallbacks
         btnExti.onClick.AddListener((() => {
         {
             PhotonNetwork.LeaveRoom();
-            SceneLoadManager.Instance.LoadScene<LobyScene>();
+            SceneLoadManager.Instance.LoadScene(SceneType.LobyScene);
         }}));
         
         inputTxt.onEndEdit.AddListener(delegate

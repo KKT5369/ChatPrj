@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using Photon.Realtime;
 using Unity.Mathematics;
@@ -7,8 +8,9 @@ using UnityEngine;
 public class RoomNetworkController : MonoBehaviourPunCallbacks
 {   
     private RoomData _roomData;
+    
 
-    public override void OnJoinedRoom()
+    private void Awake()
     {
         PhotonNetwork.NickName = PlayerDataManager.Instance.MyNicName;
         PhotonNetwork.CurrentRoom.IsOpen = true;
@@ -20,11 +22,8 @@ public class RoomNetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnJoinRoomFailed(short returnCode, string message)
+    public override void OnJoinedRoom()
     {
-        if (message.Equals("Game full"))
-        {
-            PopupManager.Instance.CreatePopup(new PopupData("입장불가","삐빅! 정.원.초.과"),(() => {SceneLoadManager.Instance.LoadScene<LobyScene>();}));
-        }
+        Debug.Log("방에 입장 >>> 컨트롤러");
     }
 }

@@ -4,19 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : SingleTon<SceneLoadManager>
 {
-    private Iscene _scene;
+    private SceneType _scene;
 
-    public Iscene Scene { get => _scene; }
+    public SceneType Scene { get => _scene; }
     
-    public void LoadScene<T>() where T : Iscene,new()
+    public void LoadScene(SceneType scene)
     {
-        _scene = new T();
+        _scene = scene;
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.LoadScene("LoadingScene");
     }
     
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
-        _scene.SceneSetting();
+        
     }
 }

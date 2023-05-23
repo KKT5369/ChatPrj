@@ -11,22 +11,17 @@ public class RoomManager : SingleTon<RoomManager>
         get => _roomData;
     }
 
-    public void CreateRoom(RoomData roomData)
+    public void CreateOrJoinRoom(RoomData roomData)
     {
         _roomData = roomData;
-        SceneLoadManager.Instance.LoadScene<RoomScene>();
-    }
-
-    public void JoinRoom(RoomData roomData)
-    {
-        _roomData = roomData;
-        //if (!PhotonNetwork.JoinRoom(roomName)) return;
-        SceneLoadManager.Instance.LoadScene<RoomScene>();
+        NetWorkManager.Instance.CreateOrJoinRoom();
+        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
     }
 
     public void RandomRoom()
     {
-        SceneLoadManager.Instance.LoadScene<RoomScene>();
+        NetWorkManager.Instance.RandomJoinRoom();
+        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
     }
     
 }

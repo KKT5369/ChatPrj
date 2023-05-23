@@ -16,7 +16,7 @@ public enum SceneType
 {
     LobyScene,
     RoomScene,
-    GameScene,
+    TestScene,
 }
 
 enum MoveState
