@@ -38,7 +38,7 @@ public class UIRoom : MonoBehaviourPunCallbacks
         nicName.text = PhotonNetwork.NickName;
         roomTitle.text = PhotonNetwork.CurrentRoom.Name;
         pv.RPC(nameof(SystemMsgPopup),RpcTarget.All,PhotonNetwork.NickName);
-        pv.RPC(nameof(UpdateLeadyBtn),RpcTarget.All);
+        pv.RPC(nameof(UpdateReadyBtn),RpcTarget.All);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -92,7 +92,24 @@ public class UIRoom : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void UpdateLeadyBtn()
+    public void UpdateReadyBtn()
+    {
+        DeleteReadyBtn();
+        
+        _players = PhotonNetwork.CurrentRoom.Players;
+        Debug.Log($"현재 방 플레이어 인원수 >>>>>> {_players.Count}");
+        for (int i = 0; i < _players.Count ; i++)
+        {
+            var go = Instantiate(btnReady, leadyStstusRect);
+            go.SetActive(true);
+            Player player;
+            _players.TryGetValue(i + 1 ,out player);
+            go.transform.GetChild(0).GetComponent<TMP_Text>().text = player.NickName;
+            _leadyButtons.Add(go);
+        }
+    }
+
+    void DeleteReadyBtn()
     {
         if (_leadyButtons.Count > 0)
         {
@@ -102,22 +119,11 @@ public class UIRoom : MonoBehaviourPunCallbacks
             }
             _leadyButtons.Clear();            
         }
-        
-        Player player;
-        _players = PhotonNetwork.CurrentRoom.Players;
-        for (int i = 0; i < _players.Count ; i++)
-        {
-            var go = Instantiate(btnReady, leadyStstusRect);
-            go.SetActive(true);
-            _players.TryGetValue(i + 1 ,out player);
-            go.transform.GetChild(0).GetComponent<TMP_Text>().text = player.NickName;
-            _leadyButtons.Add(go);
-        }
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
         Debug.Log("퇴장시 실행");
-        pv.RPC(nameof(UpdateLeadyBtn),RpcTarget.All);
+        pv.RPC(nameof(UpdateReadyBtn),RpcTarget.All);
     }
 }

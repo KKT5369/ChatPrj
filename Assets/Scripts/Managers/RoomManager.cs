@@ -20,8 +20,11 @@ public class RoomManager : SingleTon<RoomManager>
 
     public void RandomRoom()
     {
-        NetWorkManager.Instance.RandomJoinRoom();
-        SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);
+        if (PhotonNetwork.InRoom)
+        {
+            NetWorkManager.Instance.RandomJoinRoom();
+            SceneLoadManager.Instance.LoadScene(SceneType.RoomScene);    
+        }
     }
     
 }
